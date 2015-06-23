@@ -1,0 +1,13 @@
+.splash {
+  background: $primary;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 45%;
+
+  img {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+}
