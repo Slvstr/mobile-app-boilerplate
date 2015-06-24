@@ -1,41 +1,42 @@
 (function() {
   'use strict';
 
-  /******************************************************************************
-   * Dependencies
-   *****************************************************************************/
-  var gulp = require('gulp');
-  var $ = require('gulp-load-plugins')();
-  var wiredep = require('wiredep').stream;
-
   module.exports = function(options) {
-
     /******************************************************************************
-     * Config
+     * Dependencies
      *****************************************************************************/
-    var injectFiles = gulp.src('www/app/**/*.scss', { read: false });
+    var gulp = require('gulp');
+    var $ = require('gulp-load-plugins')();
+    var wiredep = require('wiredep').stream;
 
-    var injectOptions = {
-      transform: function(filePath) {
-        filePath = filePath.replace('www', '..');
-        return '@import \'' + filePath + '\';';
-      },
-      starttag: '// injector',
-      endtag: '// endinjector',
-      addRootSlash: false
-    };
-
-    var indexFilter = $.filter('app.scss');
-
-    /******************************************************************************
-     * Task
-     *****************************************************************************/
     gulp.task('sass', function() {
+
+      /******************************************************************************
+       * Config
+       *****************************************************************************/
+      var injectFiles = gulp.src('./www/app/**/*.scss', { read: false });
+
+      var injectOptions = {
+        transform: function(filePath) {
+          filePath = filePath.replace('www', '..');
+          return '@import \'' + filePath + '\';';
+        },
+        starttag: '// injector',
+        endtag: '// endinjector',
+        addRootSlash: false,
+        relative: true
+      };
+
+      var indexFilter = $.filter('branch2.scss');
+
+      /******************************************************************************
+       * Task
+       *****************************************************************************/
 
       // Uncomment the first line and comment out the second
       // if any changes to the ionic styles have been made
       // return gulp.src('./www/scss/*.scss')
-      return gulp.src('www/scss/app.scss')
+      return gulp.src('www/scss/branch2.scss')
       // .pipe(indexFilter)
       .pipe($.inject(injectFiles, injectOptions))
       // .pipe(gulp.dest('./www/scss'))

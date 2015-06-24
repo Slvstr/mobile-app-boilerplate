@@ -4,7 +4,12 @@
   /******************************************************************************
    * Main App Module Definition & Run Block
    *****************************************************************************/
-  angular.module('branch2', ['ionic', 'branch2.login'])
+  angular.module('branch2', [
+    'ionic',
+    'branch2.login',
+    'branch2.signup',
+    'branch2.assessments'
+  ])
 
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {

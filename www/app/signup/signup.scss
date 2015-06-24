@@ -1,0 +1,25 @@
+.signup {
+  background: $primary;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 30%;
+
+  h1 {
+    color: white;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 4em;
+  }
+
+  img {
+    width: 80%;
+    margin: 5% auto;
+  }
+
+  form {
+    width: 80%;
+    margin: 10% auto;
+  }
+
+}

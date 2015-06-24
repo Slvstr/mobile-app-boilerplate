@@ -40,7 +40,9 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
  *****************************************************************************/
 
 gulp.task('watch', ['inject'], function() {
-  gulp.watch(options.paths.sass, ['sass']);
+  gulp.watch(options.paths.sass, function(event) {
+    gulp.start('sass');
+  });
 });
 
 gulp.task('install', ['git-check'], function() {
