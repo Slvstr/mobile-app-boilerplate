@@ -20,7 +20,8 @@ var options = {
     exclude: ['ionic/**/*']
   },
   paths: {
-    sass: ['./www/scss/**/*.scss', './www/app/**/*.scss']
+    sass: ['./www/scss/**/*.scss', './www/app/**/*.scss'],
+    scripts: './www/app/**/*.js'
   }
 };
 
