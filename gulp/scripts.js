@@ -6,7 +6,6 @@
   // TODO (Erik Hellenbrand) : Run Unit Tests on changes to js files
     var gulp = require('gulp');
     var $ = require('load-gulp-plugins')();
-    var noop
 
     gulp.task('scripts', function() {
       gulp.src(options.paths.scripts)
