@@ -3,5 +3,13 @@
  *  inject all the sass files from www/app/ automatically
  *****************************************************************************/
 
+ // maininjector
+ @import '../app/core/app.scss';
+ // endmaininjector
+
 // injector
+@import '../app/assessments/assessments.scss';
+@import '../app/login/login.scss';
+@import '../app/signup/signup.scss';
+@import '../app/splash/splash.scss';
 // endinjector

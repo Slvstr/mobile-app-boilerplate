@@ -1,6 +1,6 @@
 {
   "name": "mobile-app-boilerplate",
-  "app_id": "",
+  "app_id": "f5c9723f",
   "gulpStartupTasks": [
     "watch"
   ],

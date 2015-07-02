@@ -1,0 +1,27 @@
+<ion-view class="assessments" hide-back-button="true">
+	<ion-nav-title>
+		<img src="img/B2_logoText_white.png">
+	</ion-nav-title>
+	<div class="assessments-wrapper">
+		<ion-content class="has-header">
+			<div>
+				<div class="assessment-prompt-wrapper">
+					<h3>Please select an assessment.</h3>
+				</div>
+				<div>
+					<div ng-repeat="assessment in selectassessment.availableAssessments track by $index">
+						<button ng-click="selectassessment.selectAssessment(assessment.id)" class="button button-block">
+						  <span>{{assessment.name}}</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</ion-content>
+	</div>
+
+	<ion-footer-bar>
+		<div>
+	  	<!-- <h1 class="title">Footer here</h1> -->
+  	</div>
+	</ion-footer-bar>
+</ion-view>

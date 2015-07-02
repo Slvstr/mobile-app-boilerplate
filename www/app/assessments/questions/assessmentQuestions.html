@@ -1,0 +1,38 @@
+<ion-view class="assessments" hide-back-button="true">
+	<ion-nav-title>
+		<img src="img/B2_logoText_white.png">
+	</ion-nav-title>
+	<div class="assessments-wrapper">
+		<ion-nav-bar class="bar-stable nav-title-slide-ios7">
+			<ion-nav-buttons side="right">
+				<button class="button" ng-click="assessments.cancelAssessment()">Cancel</button>
+			</ion-nav-buttons>
+		</ion-nav-bar>
+		<ion-content on-swipe-left="assessments.advanceNextQuestion()" on-swipe-right="assessments.returnPreviousQuestion()" class="has-header">
+			<div>
+				<div class="assessment-prompt-wrapper">
+					<h3>{{assessments.prompt}}</h3>
+				</div>
+			</div>
+		</ion-content>
+		<div class="assessment-options-wrapper">
+			<div ng-if="assessments.format == 'mc'" ng-repeat="question in assessments.questionResponses track by $index">
+				<button ng-click="assessments.recordAnswer($index)" class="button button-block">
+				  <span>{{question.text}}</span>
+				</button>
+			</div>
+			<div ng-if="assessments.format == 'ft'">
+				<textarea ng-model="freeTextInputAnswer"></textarea>
+				<button ng-click="assessments.recordAnswer(freeTextInputAnswer)" class="button button-block">
+				  <span>Submit</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<ion-footer-bar>
+		<div>
+	  	<progress max="100" value="{{assessments.progress}}" style="width: 200px"></progress>
+  	</div>
+	</ion-footer-bar>
+</ion-view>

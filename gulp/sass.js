@@ -14,7 +14,9 @@
       /******************************************************************************
        * Config
        *****************************************************************************/
-      var injectFiles = gulp.src('./www/app/**/*.scss', { read: false });
+      var injectMain = gulp.src('./www/app/core/app.scss', { read: false });
+
+      var injectFiles = gulp.src(['./www/app/**/*.scss', '!./www/app/core/app.scss'], { read: false });
 
       var injectOptions = {
         transform: function(filePath) {
@@ -23,6 +25,17 @@
         },
         starttag: '// injector',
         endtag: '// endinjector',
+        addRootSlash: false,
+        relative: true
+      };
+
+      var mainInjectOptions = {
+        transform: function(filePath) {
+          filePath = filePath.replace('www', '..');
+          return '@import \'' + filePath + '\';';
+        },
+        starttag: '// maininjector',
+        endtag: '// endmaininjector',
         addRootSlash: false,
         relative: true
       };
@@ -38,8 +51,9 @@
       // return gulp.src('./www/scss/*.scss')
       return gulp.src('www/scss/branch2.scss')
       // .pipe(indexFilter)
+      .pipe($.inject(injectMain, mainInjectOptions))
       .pipe($.inject(injectFiles, injectOptions))
-      // .pipe(gulp.dest('./www/scss'))
+      .pipe(gulp.dest('./www/scss'))
       // .pipe(indexFilter.restore())
       .pipe($.sourcemaps.init())
       .pipe($.sass({errLogToConsole: true})).on('error', options.errorHandler('Sass'))
