@@ -16,23 +16,20 @@
     .state('login', {
       url: '/login',
       templateUrl: 'app/login/login.html',
-      controller: 'LoginCtrl',
-      controllerAs: 'login'
+      controller: 'LoginCtrl as login',
     })
 
     .state('signup', {
       url: '/signup',
       templateUrl: 'app/signup/signup.html',
-      controller: 'SignupCtrl',
-      controllerAs: 'signup'
+      controller: 'SignupCtrl as signup',
     })
 
     .state('app', {
       url: "/app",
       abstract: true,
       templateUrl: "app/core/menu.html",
-      controller: 'AppCtrl',
-      controllerAs: 'app'
+      controller: 'AppCtrl as app',
     });
 
     
