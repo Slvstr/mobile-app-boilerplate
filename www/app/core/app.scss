@@ -1,9 +1,11 @@
 /******************************************************************************
  *  App-Wide Variables & mixins
  *****************************************************************************/
- $primary: cyan;
+ $primary: #094163;
  $primary-light: #B2DFDB;
  $primary-dark: #00695C;
+
+ $secondary: #4895AA;
 
  $accent: #FF5252;
 
@@ -14,6 +16,7 @@
  *  Fonts
  *****************************************************************************/
  @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+ @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
 
 
@@ -21,10 +24,70 @@
  /******************************************************************************
   *  App-Wide Styles
   *****************************************************************************/
-  body {
-    font-family: Roboto, sans-serif;
+  body ion-nav-view {
+    background: $primary;
+
+    * {
+      font-family: 'Open Sans', Roboto, sans-serif;
+    }
+
+    ion-content {
+      background: $primary;
+    }
+
+    ion-view.pane {
+      background-color: $primary;
+    }
   }
 
+  ion-header-bar.bar.bar-header {
+    background: $primary!important;
+    color: white;
+
+    h1.title {
+      color: white;
+    }
+
+    button.button {
+      background: $primary;
+      color: white;
+    }
+
+    img {
+      padding-top: 5px;
+      height: 90%;
+    }
+  }
+
+  ion-side-menus ion-side-menu.menu-left {
+    color: white;
+
+    ion-item.item {
+      background: inherit;
+      color: inherit;
+
+      * {
+        background: inherit;
+        color: inherit;
+      }
+    }
+  }
+
+  ion-footer-bar.bar-footer {
+    color: white;
+    justify-content: center;
+    background: $primary;
+  /*  border-width: 1px 0 0 0;
+    border-color: white!important;
+    border-style: solid;
+  */
+    div {
+      progress[value] {color:$secondary}
+      progress::-webkit-progress-bar-value {background:$secondary}
+      progress::-webkit-progress-value {background:$secondary}
+      progress::-moz-progress-bar {background:$secondary}
+    }
+  }
 
 
 
