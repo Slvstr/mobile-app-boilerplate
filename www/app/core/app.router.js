@@ -33,7 +33,9 @@
       templateUrl: "app/core/menu.html",
       controller: 'AppCtrl',
       controllerAs: 'app'
-    })
+    });
+
+    
 
     // .state('app.startAssessment', {
     //   url: "/start-assessment",

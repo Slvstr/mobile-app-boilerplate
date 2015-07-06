@@ -5,9 +5,25 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
+    <!-- DEPENDENCIES -->
     <!-- bower:css -->
     <!-- endbower -->
 
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- bower:js -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <!-- endbower -->
+
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+
+
+
+    <!-- APP FILES -->
     <!-- inject:css -->
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/branch2.css">
@@ -15,16 +31,10 @@
     <link rel="stylesheet" href="css/ionic.app.min.css">
     <!-- endinject -->
 
-
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-
-
     <!-- inject:js -->
-    <script src="app/start-assessment/startAssessment.module.js"></script>
-    <script src="app/start-assessment/startAssessment.controller.js"></script>
+    <script src="app/audio/audio.module.js"></script>
+    <script src="app/audio/player/player.controller.js"></script>
+    <script src="app/audio/library/library.controller.js"></script>
     <script src="app/signup/signup.module.js"></script>
     <script src="app/signup/signup.controller.js"></script>
     <script src="app/login/login.module.js"></script>
@@ -32,6 +42,10 @@
     <script src="app/core/app.js"></script>
     <script src="app/core/app.router.js"></script>
     <script src="app/core/app.controller.js"></script>
+    <script src="app/audio/audio.service.js"></script>
+    <script src="app/audio/audio.router.js"></script>
+    <script src="app/assessments/assessments.module.js"></script>
+    <script src="app/assessments/assessments.controller.js"></script>
     <!-- endinject -->
   </head>
 

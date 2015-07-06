@@ -8,7 +8,7 @@
     'ionic',
     'branch2.login',
     'branch2.signup',
-    'branch2.assessments'
+    'branch2.audio'
   ])
 
   .run(function($ionicPlatform) {

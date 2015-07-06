@@ -17,7 +17,7 @@ var options = {
   },
   wiredep: {
     directory: 'www/lib',
-    exclude: ['ionic/**/*']
+    exclude: ['ionic', 'angular']
   },
   paths: {
     sass: ['./www/scss/**/*.scss', './www/app/**/*.scss'],
