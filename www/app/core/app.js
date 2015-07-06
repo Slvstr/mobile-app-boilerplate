@@ -6,6 +6,7 @@
    *****************************************************************************/
   angular.module('branch2', [
     'ionic',
+    'ngCordova',
     'branch2.login',
     'branch2.signup',
     'branch2.audio'
