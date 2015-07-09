@@ -2,37 +2,54 @@
 	<ion-nav-title>
 		<img src="img/B2_logoText_white.png">
 	</ion-nav-title>
-	<div class="assessments-wrapper">
+	<div class="assessments-wrapper" on-swipe-left="assessments.advanceNextQuestion()" on-swipe-right="assessments.returnPreviousQuestion()" >
 		<ion-nav-bar class="bar-stable nav-title-slide-ios7">
 			<ion-nav-buttons side="right">
-				<button class="button" ng-click="assessments.cancelAssessment()">Cancel</button>
+				<button class="button" ng-click="assessments.returnToAssessmentSelection()">Cancel</button>
 			</ion-nav-buttons>
 		</ion-nav-bar>
-		<ion-content on-swipe-left="assessments.advanceNextQuestion()" on-swipe-right="assessments.returnPreviousQuestion()" class="has-header">
-			<div>
-				<div class="assessment-prompt-wrapper">
-					<h3>{{assessments.prompt}}</h3>
-				</div>
+		<!-- <ion-content> -->
+			<div class="assessment-prompt-wrapper">
+				<a ng-click="assessments.returnPreviousQuestion()" ng-class="{'navigation-unavailable' : assessments.navigationUnavailable('backward')}">&lt;</a>
+				<h3>{{assessments.questionInformation.prompt}}</h3>
+				<a style="margin-right: 11px" ng-click="assessments.advanceNextQuestion()" ng-class="{'navigation-unavailable' : assessments.navigationUnavailable('forward')}">&gt;</a>
 			</div>
-		</ion-content>
-		<div class="assessment-options-wrapper">
-			<div ng-if="assessments.format == 'mc'" ng-repeat="question in assessments.questionResponses track by $index">
-				<button ng-click="assessments.recordAnswer($index)" class="button button-block">
-				  <span>{{question.text}}</span>
-				</button>
+			<div class="assessment-options-wrapper">
+				<form novalidate name="questionForm">
+					<div ng-if="assessments.questionInformation.type == 'mc'" ng-repeat="response in assessments.questionInformation.responses track by $index">
+						<button ng-click="assessments.recordAnswer(response)" class="button button-block" ng-class="{'activated' : assessments.isButtonResponseSelected(response)}">
+						  <span>{{response.text}}</span>
+						</button>
+					</div>
+					<div ng-if="assessments.questionInformation.type == 'ft'">
+						<div class="freetext-input-wrapper">
+							<textarea ng-required="assessments.questionInformation.required" ng-minlength="1" ng-model="assessments.questionInformation.answer"></textarea>
+						</div>
+						<button ng-disabled="questionForm.$invalid" ng-click="assessments.recordAnswer()" class="button button-block submit-button">
+						  <span>Submit</span>
+						</button>
+					</div>
+					<div ng-if="assessments.questionInformation.type == 'num'" class="numeric-responses">
+						<div ng-repeat="response in assessments.questionInformation.responses track by $index">
+							<div class="numeric-response-label">
+								<label>{{response.text}}</label>
+							</div>
+							<div class="numeric-response-input">
+								<input ng-required="assessments.questionInformation.required" type="number" min="{{response.numEntryMin}}" max="{{response.numEntryMax}}" ng-model="assessments.questionInformation.answer[response.id]"></input>
+							</div>
+						</div>
+						<button ng-disabled="questionForm.$invalid" ng-click="assessments.recordAnswer()" class="button button-block submit-button">
+						  <span>Submit</span>
+						</button>
+					</div>
+				</form>
 			</div>
-			<div ng-if="assessments.format == 'ft'">
-				<textarea ng-model="freeTextInputAnswer"></textarea>
-				<button ng-click="assessments.recordAnswer(freeTextInputAnswer)" class="button button-block">
-				  <span>Submit</span>
-				</button>
-			</div>
-		</div>
+		<!-- </ion-content> -->
 	</div>
 
 	<ion-footer-bar>
 		<div>
-	  	<progress max="100" value="{{assessments.progress}}" style="width: 200px"></progress>
+	  	<!-- <progress max="100" value="0" style="width: 200px"></progress> -->
   	</div>
 	</ion-footer-bar>
 </ion-view>

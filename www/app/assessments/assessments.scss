@@ -1,19 +1,112 @@
 .assessments {
+	@media (max-height: 400px) {
+			div.assessments-wrapper {
+	 			padding-top: 0px;
+	 			padding-bottom: 0px;
+
+	 			div.assessment-prompt-wrapper {
+	 				.assessment-navigation {
+	 					display: none;
+	 					height: 0;
+	 				}
+	 			}
+
+	 			div.assessment-options-wrapper {
+	 				bottom: 0;
+
+	 				/*button.submit-button {
+			 			display: none;
+			 			height: 0;
+			 		}*/
+
+			 		textarea {
+			 			margin-bottom: 20px;
+			 		}
+	 			}
+	 		}
+
+	 		ion-header-bar {
+	 			display: none;
+	 			height: 0;
+	 		}
+
+	 		ion-footer-bar {
+	 			display: none;
+	 			height: 0;
+	 		}
+	 	}
+
 	.assessments-wrapper{
-		/*background: $primary;*/
 		display: flex;
 	  flex-direction: column;
 	  height: 100%;
-	  padding-top: 25%;
+	  padding-top: 44px;
 
-	 	.assessment-prompt-wrapper {
-	 		text-align: center;
+	  .return-assessment-select {
+	  	position: absolute;
+	  	bottom: 45px;
+	  }
 
+	  .assessment-results-wrapper {
+	  	.assessment-results-prompt {
+	  		text-align: center;
+	  		h2 {
+		  		color: white;
+		  	}
+	  	}
+
+	  	.assessment-result {
+	  		padding: 24px 0;
+	  		border-style: solid;
+	  		border-width: 1px 0;
+	  		border-color: $secondary;
+
+	  		h3 {
+	  			color: white;
+	  		}
+
+	  		p {
+	  			color: white;
+	  		}
+	  	}
+
+	  	p {
+	  			color: white;
+	  		}
+	  }
+
+	  .assessment-selection-prompt-wrapper {
+	  	text-align: center;
+	 		display: flex;
 	 		padding: 25px 0;
+	 		justify-content: space-between;
 
 	 		h3 {
 	 			color:white;
 	 			margin: 0 10px 10px 10px;
+	 		}
+	  }
+
+	 	.assessment-prompt-wrapper {
+	 		text-align: center;
+	 		display: flex;
+	 		padding: 10px 0;
+	 		justify-content: space-between;
+
+	 		h3 {
+	 			color:white;
+	 			margin: 0 10px 10px 10px;
+	 			font-size: 22px;
+	 		}
+
+ 			a {
+ 				color: white;
+ 				font-size: 30px;
+ 				padding: 4px 14px 25px 14px;
+ 			}
+	 		
+	 		a.navigation-unavailable {
+	 			visibility: hidden;
 	 		}
 	 	}
 
@@ -22,9 +115,49 @@
 	 		bottom: 45px;
 	 		width: 100%;
 
-	 		textarea {
-	 			width: 100%;
-	 			height: 10em;
+	 		.freetext-input-wrapper {
+
+	 			margin: 5px;
+
+	 			textarea {
+		 			width: 100%;
+		 			height: 10em;
+		 			padding: 5px;
+		 		}
+	 		}
+	 		
+	 		.item-radio.activated {
+	 			background-color: red;
+	 		}
+
+	 		.numeric-responses {
+	 			>div {
+	 				color: white;
+					background-color: $primary;
+					margin: 0 0 -1px 0;
+					border-width: 1px 0;
+					border-color: $secondary;
+					border-style:solid;
+					padding: 15px 0;
+
+					>div {
+						display: inline-block;
+						width: 49%;
+						text-align: center;
+					}
+	 			}
+
+	 			label {
+	 				font-size: 18px;
+	 				color: white;
+	 			}
+
+	 			input {
+	 				display: inline-block;
+	 				margin-left:10px;
+	 				width: 66px;
+	 				text-align: center;
+	 			}
 	 		}
 	 	}
 
@@ -34,7 +167,7 @@
 			margin: 0 0 -1px 0;
 			border-width: 1px 0;
 			border-color: $secondary;
-			padding: 15px 0;
+			padding: 12px 0;
 
 			* {
 				background-color: transparent;

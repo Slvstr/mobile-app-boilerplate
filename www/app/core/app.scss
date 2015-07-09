@@ -44,6 +44,9 @@ ion-header-bar.bar.bar-header {
 	background: $primary!important;
 	color: white;
 
+	border-width: 0;
+	border-style: none;
+
 	h1.title {
 		color: white;
 	}

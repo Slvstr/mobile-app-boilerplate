@@ -52,6 +52,16 @@
           controller: 'AssessmentsCtrl as assessments'
         }
       }
+    })
+
+    .state('app.endAssessment', {
+      url: "/assessment-results",
+      views: {
+        'menuContent': {
+          templateUrl: 'app/assessments/end/endAssessment.html',
+          controller: 'EndAssessmentCtrl as endassessment'
+        }
+      }
     });
 
       // .state('app.playlists', {

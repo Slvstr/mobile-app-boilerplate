@@ -5,12 +5,12 @@
 	<div class="assessments-wrapper">
 		<ion-content class="has-header">
 			<div>
-				<div class="assessment-prompt-wrapper">
+				<div class="assessment-selection-prompt-wrapper">
 					<h3>Please select an assessment.</h3>
 				</div>
 				<div>
 					<div ng-repeat="assessment in selectassessment.availableAssessments track by $index">
-						<button ng-click="selectassessment.selectAssessment(assessment.id)" class="button button-block">
+						<button ng-click="selectassessment.selectAssessment(assessment)" class="button button-block">
 						  <span>{{assessment.name}}</span>
 						</button>
 					</div>

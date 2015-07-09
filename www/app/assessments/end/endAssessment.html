@@ -1,0 +1,32 @@
+<ion-view class="assessments" hide-back-button="true">
+	<ion-nav-title>
+		<img src="img/B2_logoText_white.png">
+	</ion-nav-title>
+	<div class="assessments-wrapper">
+		<ion-content class="has-header">
+			<div ng-if="!endassessment.scoresHidden" class="assessment-results-wrapper">
+				<div class="assessment-results-prompt">
+					<h2>Results:</h2>
+				</div>
+				<div>
+					<div class="assessment-result" ng-repeat="score in endassessment.scores track by $index">
+						<h3>{{score.name}}: {{score.score}}</h3>
+						<p>{{score.description}}</p>
+					</div>
+					<br>
+					<p>Score readout is currently for debugging purposes only.</p>
+				</div>
+			</div>
+		</ion-content>
+
+		<button ng-click="endassessment.returnToSelectAssessment()" class="button button-block return-assessment-select">
+		  <span>Return to select assessment screen</span>
+		</button>
+	</div>
+
+	<ion-footer-bar>
+		<div>
+	  	<!-- <h1 class="title">Footer here</h1> -->
+  	</div>
+	</ion-footer-bar>
+</ion-view>
