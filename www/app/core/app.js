@@ -12,6 +12,10 @@
     'branch2.audio'
   ])
 
+  // CHANCE THIS FOR EACH CUSTOMER
+  .constant('Community', 'demoCommunity')
+
+
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
