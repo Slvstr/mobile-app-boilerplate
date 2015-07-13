@@ -1,0 +1,30 @@
+<ion-view class="audio-player">
+  <ion-pane>
+    <div class="row">
+      <div class="col col-25"><i class="icon ion-chevron-left"></i></div>
+      <div class="col col-50">{{player.track.courseSegmentText}}</div>
+      <div class="col col-25"><i class="icon ion-chevron-right"></i></div>
+    </div>
+
+    <div class="list card">
+      <div class="item track-info" ng-click="player.togglePlayback()">
+        <h1 class="title">{{player.track.title}}</h1>
+        <h2 class="duration">{{player.track.duration}}</h2>
+        <p class="description">{{player.track.description}}</p>
+      </div>
+      
+      <div class="item playback-controls">
+        <div class="control">
+          <i class="icon ion-skip-backward"></i>
+        </div>
+        <div class="control play-pause">
+          <i class="icon ion-play" ng-hide="player.isPlaying" ng-click="player.togglePlayback()"></i>
+          <i class="icon ion-pause" ng-show="player.isPlaying" ng-click="player.togglePlayback()"></i>
+        </div>
+        <div class="control">
+          <i class="icon ion-skip-forward"></i>
+        </div>
+      </div>
+    </div>
+  </ion-pane>
+</ion-view>

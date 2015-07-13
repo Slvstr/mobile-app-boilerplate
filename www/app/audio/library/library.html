@@ -1,0 +1,17 @@
+<ion-view class="audio-library">
+  <ion-nav-title>
+    <img src="img/B2_logoText_white.png" alt="Branch2">
+  </ion-nav-title>
+
+  <ion-content>
+    <h1>Audio Library</h1>
+    <ion-list>
+      <ion-item class="track" ng-repeat="track in library.tracks" ng-click="library.playTrack(track)">
+        <i class="icon ion-headphone"></i>
+        <i class="icon ion-star new-track"></i>
+        <h2 class="title">{{track.title}} ({{track.duration}})</h2>
+        <p class="description">{{track.description}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

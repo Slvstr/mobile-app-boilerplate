@@ -1,0 +1,17 @@
+.audio-library {
+  color: $primary;
+  h1 {
+    color: white;
+    text-align: center
+  }
+  i {
+    // &.ion-headphones {
+    //   display: inline-block;
+    // }
+
+    &.ion-star {
+      color: gold;
+      float: right;
+    }
+  }
+}
