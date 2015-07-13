@@ -18,6 +18,10 @@
 
       // Retrieve the information for this question, and set that information to be displayed.
       self.questionInformation = Assessments.getQuestionInformation();
+
+      if (self.questionInformation === undefined) {
+        self.returnToAssessmentSelection();
+      }
       // console.log(self.questionInformation);
     });
 
@@ -39,16 +43,16 @@
     };
 
     // Determines the visibility of the forward and backward navigation buttons.
-    this.navigationUnavailable = function(direction) {
+    this.navigationAvailable = function(direction) {
       if (direction === 'backward') {
-        return self.questionInformation.leftBounded;
+        return !self.questionInformation.leftBounded;
       }
 
       if (direction === 'forward') {
-        return self.questionInformation.rightBounded;
+        return !self.questionInformation.rightBounded;
       }
 
-      return true;
+      return false;
     };
 
     // Request to return to the last question from the service.  If a previous question exists, transition to that view.

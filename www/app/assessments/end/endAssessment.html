@@ -12,9 +12,24 @@
 					<div class="assessment-result" ng-repeat="score in endassessment.scores track by $index">
 						<h3>{{score.name}}: {{score.score}}</h3>
 						<p>{{score.description}}</p>
+						<div ng-repeat="range in score.rangesOccupying track by $index">
+							<h4>{{range.name}}</h4>
+						</div>
+						<div ng-if="score.hasSubscores">
+							<h4>Subscores</h4>
+							<div ng-repeat="subscore in score.processedSubscores track by $index">
+								<h5>{{subscore.name}}: {{subscore.score}}</h5>
+								<p>{{subscore.description}}</p>
+									<div ng-repeat="range in subscore.rangesOccupying track by $index">
+										<h5>{{range.name}}</h5>
+									</div>
+							</div>
+						</div>
 					</div>
 					<br>
 					<p>Score readout is currently for debugging purposes only.</p>
+				</div>
+				<div style="height: 112px;">
 				</div>
 			</div>
 		</ion-content>

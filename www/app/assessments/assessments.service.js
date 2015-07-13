@@ -27,17 +27,18 @@
         }
       }
 
-      console.log("Current question ID: "+questionID);
-      console.log("all questions array:");
-      console.log(currentAssessmentData.questions);
+      // console.log("Current question ID: "+questionID);
+      // console.log("all questions array:");
+      // console.log(currentAssessmentData.questions);
 
 			return currentAssessmentData.questions[questionID].nextQuestionID;
 		};
 
     // Submits answers to firebase
     var postAnswers = function() {
-      console.log(AssessmentsStack.getAnswerStack());
-      assessmentSubmissionsRef.push(AssessmentsStack.getAnswerStack());
+      // var scores = this.getScores();
+      // console.log(scores);
+      // assessmentSubmissionsRef.push(scores);
     };
 
   	return {
@@ -87,12 +88,16 @@
   			var questionInformation = {};
         var questionID = AssessmentsStack.getCurrentQuestionID();
 
-  			questionInformation = currentAssessmentData.questions[questionID];
-  			questionInformation.assessmentProgress = (parseInt(questionID))/currentAssessmentData.questions.length;
-        questionInformation.answer = AssessmentsStack.getCurrentAnswer();
-        questionInformation.leftBounded = AssessmentsStack.atBottomOfStack();
-        questionInformation.rightBounded = AssessmentsStack.atTopOfStack();
-  			return questionInformation;
+        if (currentAssessmentData !== undefined) {
+    			questionInformation = currentAssessmentData.questions[questionID];
+    			questionInformation.assessmentProgress = (parseInt(questionID))/currentAssessmentData.questions.length;
+          questionInformation.answer = AssessmentsStack.getCurrentAnswer();
+          questionInformation.leftBounded = AssessmentsStack.atBottomOfStack();
+          questionInformation.rightBounded = AssessmentsStack.atTopOfStack();
+    			return questionInformation;
+        }
+
+        return undefined;
   		},
 
   		// Returns a promise for the available assessments
@@ -107,7 +112,15 @@
 
       getScores: function() {
         if (currentAssessmentData.resultsVisibleToPatient) {
-          return AssessmentsScoring.getScores(currentAssessmentData, AssessmentsStack.getAnswerStack());
+          var scores = AssessmentsScoring.getScores(currentAssessmentData, AssessmentsStack.getAnswerStack());
+
+          var submission = {};
+
+          submission.scores = scores;
+          submission.answers = AssessmentsStack.getAnswerStack();
+
+          assessmentSubmissionsRef.push(submission);
+          return scores;
         }
 
         return undefined;
@@ -166,10 +179,10 @@
 
       submitAnswerToAnswerStack: function(answer, nextQuestionID) {
         if (answerRequiresTrimmingAnswerStack(nextQuestionID)) {
-          console.log(assessmentAnswerStack);
+          // console.log(assessmentAnswerStack);
           assessmentAnswerStack = assessmentAnswerStack.slice(0, assessmentAnswerStackPosition + 1);
-          console.log("Trimmed answer stack:");
-          console.log(assessmentAnswerStack);
+          // console.log("Trimmed answer stack:");
+          // console.log(assessmentAnswerStack);
         }
 
         assessmentAnswerStack[assessmentAnswerStackPosition].answer = answer;
@@ -178,11 +191,15 @@
           appendToAssessmentAnswerStack(nextQuestionID);
         }
 
-        console.log(assessmentAnswerStack);
+        // console.log(assessmentAnswerStack);
       },
 
       getCurrentQuestionID: function() {
-        return assessmentAnswerStack[assessmentAnswerStackPosition].questionID;
+        if (assessmentAnswerStack[assessmentAnswerStackPosition] !== undefined) {
+          return assessmentAnswerStack[assessmentAnswerStackPosition].questionID;
+        }
+
+        return undefined;
       },
 
       getCurrentAnswer: function() {
@@ -244,30 +261,74 @@
           var newScore = {};
           newScore.name = scoreSection.name;
           newScore.description = scoreSection.description;
-          newScore.allRanges = scoreSection.ranges;
+          newScore.allRanges = scoreSection.ranges || [];
+          newScore.hasSubscores = scoreSection.hasSubscores;
           newScore.rangesOccupying = [];
+          newScore.processedSubscores = [];
 
-          // Add up the score for this section
-          scoreSection.operations.forEach(function(operation) {
-            if (answeredQuestions[operation.questionID] !== undefined) {
-              console.log("answeredquestions id was valid");
-              if (operation.operator === "+") {
-                console.log("Was a plus operator.");
-                scoreSum += parseInt(answeredQuestions[operation.questionID].value);
+          if (!newScore.hasSubscores)
+          {
+            // Add up the score for this section
+            scoreSection.operations.forEach(function(operation) {
+              if (answeredQuestions[operation.questionID] !== undefined) {
+                // console.log("answeredquestions id was valid");
+                if (operation.operator === "+") {
+                  // console.log("Was a plus operator.");
+                  scoreSum += parseInt(answeredQuestions[operation.questionID].value);
+                }
+
+                if (operation.operator === "-") {
+                  scoreSum -= parseInt(answeredQuestions[operation.questionID].value);
+                }
+              }
+            });
+          }
+
+          if (newScore.hasSubscores) {
+            // Add up the score for each subscore.
+            scoreSection.subscores.forEach(function(subscore) {
+              var subscoreSum = 0;
+              var newSubscore = {};
+              newSubscore.name = subscore.name;
+              newSubscore.description = subscore.description;
+              newSubscore.allRanges = subscore.ranges  || [];
+              newSubscore.rangesOccupying = [];
+
+              subscore.operations.forEach(function(operation) {
+                if (answeredQuestions[operation.questionID] !== undefined) {
+                  if (operation.operator === "+") {
+                    subscoreSum += parseInt(answeredQuestions[operation.questionID].value);
+                  }
+
+                  if (operation.operator === "-") {
+                    subscoreSum -= parseInt(answeredQuestions[operation.questionID].value);
+                  }
+                }
+              });
+
+              if (subscore.ranges !== undefined) {
+                subscore.ranges.forEach(function(range) {
+                  if (parseInt(range.min) <= subscoreSum && parseInt(range.max) >= subscoreSum) {
+                    newSubscore.rangesOccupying.push(range);
+                  }
+                });
               }
 
-              if (operation.operator === "-") {
-                scoreSum -= parseInt(answeredQuestions[operation.questionID].value);
-              }
-            }
-          });
+              newSubscore.score = subscoreSum;
+              scoreSum += subscoreSum;
 
-          // Whichever ranges this score falls into, take note of them.
-          scoreSection.ranges.forEach(function(range) {
-            if (parseInt(range.min) <= scoreSum && parseInt(range.max) >= scoreSum) {
-              newScore.rangesOccupying.push(range);
-            }
-          });
+              newScore.processedSubscores.push(newSubscore);
+            });
+          }
+
+          if (scoreSection.ranges !== undefined) {
+            // Whichever ranges this score falls into, take note of them.
+            scoreSection.ranges.forEach(function(range) {
+              if (parseInt(range.min) <= scoreSum && parseInt(range.max) >= scoreSum) {
+                newScore.rangesOccupying.push(range);
+              }
+            });
+          }
 
           newScore.score = scoreSum;
           processedScores.push(newScore);
